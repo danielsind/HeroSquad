@@ -12,14 +12,13 @@ public class HeroTest{
     @After
         public void tearDown()throws Exception{
         }
+    Hero testHero = new Hero("SuperMan",28,"SuperStrength","purpleStone");
     @Test
     public void newHeroObjectGetCorrectlyCreated_true() throws Exception{
-        Hero testHero = new Hero ("SuperMan",28,"SuperStrength","purpleStone");
         assertEquals(true,testHero instanceof Hero);
     }
     @Test
     public void theGettersReturnProperty_true() throws Exception{
-        Hero testHero = new Hero("SuperMan",28,"SuperStrength","purpleStone");
         assertEquals("SuperMan",testHero.getName());
         assertEquals(28,testHero.getAge());
         assertEquals("SuperStrength",testHero.getAbility());
