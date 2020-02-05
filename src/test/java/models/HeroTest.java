@@ -47,4 +47,9 @@ public class HeroTest{
         Hero testHero = setupNewHero();
         assertEquals(LocalDateTime.now().getDayOfWeek(),testHero.getCreatedAt().getDayOfWeek());
     }
+    @Test
+    public void findThatReturnsCorrectWhenMoreThanOnePostExist() throws Exception{
+        Hero newTestHero = new Hero("BatMan",12,"Mind","NoPowers");
+        assertEquals(2,Hero.findById(newTestHero.getId()).getId());
+    }
 }

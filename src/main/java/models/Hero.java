@@ -77,4 +77,7 @@ public class Hero {
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }
+    public static Hero findById(int id){
+        return instances.get(id-1);
+    }
 }

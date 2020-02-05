@@ -16,6 +16,8 @@ public class App {
         staticFileLocation("/public");
         get("/",(request, response) -> {
             Map<String,Object>model = new HashMap<String, Object>();
+            List<Hero> heroes = Hero.getInstances();
+            model.put("heroes",heroes);
             return new ModelAndView(model,"index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -26,6 +28,10 @@ public class App {
             String ability = request.queryParams("ability");
             String weakness = request.queryParams("weakness");
             Hero newHero = new Hero(name,age,ability,weakness);
+            model.put("name",name);
+            model.put("age",age);
+            model.put("ability",ability);
+            model.put("weakness",weakness);
             return  new ModelAndView(model,"success.hbs");
         }, new HandlebarsTemplateEngine());
 
