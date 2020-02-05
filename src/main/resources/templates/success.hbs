@@ -1,6 +1,15 @@
 {{#partial "content"}}
-    <h1>Awesome!!!</h1>
-    You have Successfully created your hero.
-    <a href="/">Back to main page!!</a>
+    {{#if editPost}}
+        <h1>Awesome!!!</h1>
+
+        <p>Your hero has been created</p>
+        <a href="/">back</a>
+    {{else}}
+        <h1>Awesome!!</h1>
+        <p>Your hero has been updated</p>
+        <a href="/">Back</a>
+    {{/if}}
+
+
 {{/partial}}
 {{> layout.hbs}}

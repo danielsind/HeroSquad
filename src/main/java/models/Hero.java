@@ -80,4 +80,10 @@ public class Hero {
     public static Hero findById(int id){
         return instances.get(id-1);
     }
+    public void update(String name,String ability,String weakness,int age){
+        this.name = name;
+        this.ability = ability;
+        this.weakness = weakness;
+        this.age = age;
+    }
 }
