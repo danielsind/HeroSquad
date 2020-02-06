@@ -6,50 +6,54 @@ import java.util.List;
 
 public class Hero {
     private String name;
-    private int id;
-    private static List<Hero> instances = new ArrayList<>();
     private int age;
     private String ability;
     private String weakness;
+    private int id;
+    private int squadId;
     private boolean created = false;
     private LocalDateTime createdAt;
+    private static List<Hero> instances = new ArrayList<>();
 
-    public Hero(String name, int age, String ability, String weakness){
+
+
+    public Hero(String name, int age, String ability, String weakness,int squadId){
       this.name = name;
       this.age = age;
       this.ability= ability;
       this.weakness = weakness;
+      this.squadId = squadId;
+      Squad squad = Squad.find(squadId);
+      squad.addHero(this);
       instances.add(this);
       this.id=instances.size();
       this.created = false;
       this.createdAt = LocalDateTime.now();
+
     }
    public String getName(){
-        return this.name;
+        return name;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
     public int getAge(){
-        return this.age;
+        return age;
     }
-    public void setAge(int age) {
+    private void setAge(int age) {
         this.age = age;
     }
     public String getAbility(){
-        return this.ability;
+        return ability;
     }
-    public void setAbility(String ability) {
+    private void setAbility(String ability) {
         this.ability = ability;
     }
     public String getWeakness(){
-        return this.weakness;
+        return weakness;
     }
-    public void setWeakness(String weakness) {
+    private void setWeakness(String weakness) {
         this.weakness = weakness;
-    }
-    public int getId() {
-        return id;
     }
     public void setId(int id) {
         this.id = id;
@@ -61,24 +65,14 @@ public class Hero {
     public static void setInstances(List<Hero> instances) {
         Hero.instances = instances;
     }
-    public void setNameAgeAbilityWeakness(String name,int age,String ability,String weakness){
-        this.setAbility(ability);
-        this.setAge(age);
-        this.setName(name);
-        this.setWeakness(weakness);
-    }
-
-    public static void clearAll() {
-        instances.clear();
-    }
     public boolean getCreated(){
-        return this.created;
+        return created;
     }
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }
-    public static Hero findById(int id){
-        return instances.get(id-1);
+    public static Hero findById(int n){
+        return instances.get(n-1);
     }
     public void update(String name,String ability,String weakness,int age){
         this.name = name;
@@ -86,4 +80,14 @@ public class Hero {
         this.weakness = weakness;
         this.age = age;
     }
+    public int getId() {
+        return id;
+    }
+    public int getSquadId() {
+        return squadId;
+    }
+    public static void clearAll() {
+        instances.clear();
+    }
+
 }
