@@ -109,5 +109,15 @@ public class App {
             model.put("hero",foundHero);
             return new ModelAndView(model,"hero-detail.hbs");
         },new HandlebarsTemplateEngine());
+
+        get("/heroes/squads", (request, response) -> {
+            Map<String,Object> model = new HashMap<>();
+            List<Hero> heroes = new ArrayList<>();
+            ArrayList<Squad> squads = new ArrayList<>();
+            model.put("heroes",heroes);
+            model.put("squads",squads);
+            return new ModelAndView(model,"squadsAndHeroes.hbs");
+        }, new HandlebarsTemplateEngine());
     }
+
 }
