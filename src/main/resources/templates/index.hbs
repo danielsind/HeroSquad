@@ -9,5 +9,9 @@
  {{else}}
      <p>No Heroes yet</p>
  {{/if}}
+    <h1>Squads</h1>
+    {{#each squads}}
+        <p>{{name}}  {{mission}}</p>
+    {{/each}}
 {{/partial}}
-{{> layout.hbs}}
+{{>layout.hbs}}

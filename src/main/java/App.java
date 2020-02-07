@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import models.Hero;
+import models.Squad;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import javax.management.MalformedObjectNameException;
+import javax.swing.*;
 
 import static spark.Spark.*;
 
@@ -17,14 +19,37 @@ public class App {
         get("/",(request, response) -> {
             Map<String,Object>model = new HashMap<String, Object>();
             List<Hero> heroes = Hero.getInstances();
+            ArrayList<Squad> squads = Squad.getSquads();
             model.put("heroes",heroes);
+            model.put("squads",squads);
             return new ModelAndView(model,"index.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/heroes/new",(request, response) -> {
             Map<String,Object>model = new HashMap<>();
+            ArrayList<Squad> squads = Squad.getSquads();
+            model.put("squads", squads);
             return  new ModelAndView(model,"newhero-form.hbs");
         },new HandlebarsTemplateEngine());
+
+
+        get("/squads/new", (request, response) -> {
+            Map<String,Object> model = new HashMap<>();
+            return new ModelAndView(model,"squad-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+
+        post("/squads/new", (request, response) -> {
+            Map<String,Object> model = new HashMap<>();
+
+            String name = request.queryParams("name");
+            String mission = request.queryParams("mission");
+            int size = Integer.parseInt(request.queryParams("size"));
+            Squad newSquad = new Squad(name,mission,size);
+            model.put("squads",newSquad);
+            return new ModelAndView(model,"successHero.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         post("/heroes/new",(request, response) -> {
             Map<String,Object> model = new HashMap<String, Object>();
@@ -39,7 +64,7 @@ public class App {
             return  new ModelAndView(model,"success.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("heroes/:id",(request, response) -> {
+        get("/heroes/:id",(request, response) -> {
             Map<String,Object>model = new HashMap<>();
             int IdOfHeroToFind = Integer.parseInt(request.params(":id"));
             Hero foundHero = Hero.findById(IdOfHeroToFind);
@@ -69,16 +94,15 @@ public class App {
 
         get("/",(request, response) -> {
             Map<String,Object> model = new HashMap<>();
+            ArrayList<Squad> squads = Squad.getSquads();
             List<Hero> heroes = Hero.getInstances();
             model.put("heroes",heroes);
+            model.put("squads",squads);
             return new ModelAndView(model,"index.hbs");
         },new HandlebarsTemplateEngine());
-        get("heroes/new",(request, response) -> {
-            Map<String,Object>model = new HashMap<>();
-            return new ModelAndView(model,"newhero-form.hbs");
-        },new HandlebarsTemplateEngine());
 
-        get("heroes/:id",(request, response) -> {
+
+        get("/heroes/:id",(request, response) -> {
             Map<String,Object>model = new HashMap<>();
             int IdOfHeroToFind = Integer.parseInt(request.params(":id"));
             Hero foundHero = Hero.findById(IdOfHeroToFind);
