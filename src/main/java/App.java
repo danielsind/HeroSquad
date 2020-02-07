@@ -8,13 +8,19 @@ import models.Squad;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import javax.management.MalformedObjectNameException;
-import javax.swing.*;
-
 import static spark.Spark.*;
 
 public class App {
+    static int getHeroAssignedPort(){
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null){
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567;
+    }
     public static void main(String[] args) {
+
+        port(getHeroAssignedPort());
         staticFileLocation("/public");
         get("/",(request, response) -> {
             Map<String,Object>model = new HashMap<String, Object>();

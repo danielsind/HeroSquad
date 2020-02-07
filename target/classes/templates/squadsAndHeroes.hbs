@@ -1,0 +1,21 @@
+{{#partial "content"}}
+    <h1>Heroes</h1>
+
+    {{#if heroes}}
+        {{#each heroes}}
+            <div class="card">
+            <p>Current Heroes</p>
+            <p>{{name}} <a href="/heroes/{{id}}">read more</a> </p>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>No Heroes yet</p>
+    {{/if}}
+    <h1>Squads</h1>
+    {{#each squads}}
+        <div class="card">
+        <p>{{name}}  {{mission}}</p>
+        </div>
+    {{/each}}
+{{/partial}}
+{{>layout.hbs}}
